@@ -34,7 +34,7 @@ export default class LocationsController{
         try {
             const allLocations = await Location.find({});
             return res.status(201).json({
-                message: 'Location created successfully',
+                message: 'Locations fetched',
                 allLocations,
                 });
         } catch (error) {
@@ -83,7 +83,12 @@ export default class LocationsController{
 
     static async deleteLocation (req, res){
         try {
-            
+            const locationName = req.body.name;
+            const deletedLocation = await Location.deleteOne({name: locationName});
+            return res.status(404).json({
+                message: 'Location deleted successfully',
+                Location: deletedLocation,
+                });
         } catch (error) {
             console.log(error);
         }
